@@ -1,0 +1,74 @@
+<!--Main Site-->
+
+
+<!--bottom navigation bar-->
+<nav class="bottom-navbar">
+    <a href="#home" class="fas fa-home"></a>
+    <a href="#featured" class="fas fa-list"></a>
+    <a href="#arrivals" class="fas fa-tags"></a>
+    <a href="#reviews" class="fas fa-comments"></a>
+    <a href="#blogs" class="fas fa-blogs"></a>
+</nav>
+
+<!--/bottom navigation bar-->
+
+<!--Section for book summary starts here-->
+
+
+<!-- main section of the website -->
+
+<div class="book-cover-container">
+    <div id="book-cover">
+        <img src="/<%= books.avatar %>" width="290px" />
+    </div>
+</div>
+
+<div class="book_orderContainer ">
+    <div class="sells-form-group">
+        <label for="title" class="book-lable">Book-title:</label>
+        <input type="text" class="book-contentLabel" name="Title" value="<%=books.Title%>" disabled>
+    </div>
+    <div class="sells-form-group">
+        <label for="Geners" class="book-lable">Geners:</label>
+        <input type="text" name="SellingPrice" class="book-contentLabel" value="<%=books.Geners%>" disabled>
+    </div>
+    <div class="sells-form-group">
+        <label for="SellingPrice" class="book-lable">Price:</label>
+        <input type="text" name="SellingPrice" class="book-contentLabel" value="<%=books.SellingPrice%>" disabled>
+    </div>
+    <div class="sells-form-group">
+        <label for="Description" class="book-lable">Description:</label>
+        <span><%=books.Description%></span>
+    </div>
+</div>
+<div class="form-container">
+    <form id="order-form" method="POST" action="/order/api/books" enctype="multipart/form-data">
+        <div>
+            <label id="clientOrder-header" class="clientOrder-lable">Order Form</label>
+        </div>
+        <div>
+            <label for="cleintname" class="clientOrder-lable">Name:</label>
+            <input type="text" name="clientName" class="clientOrder-input" value="" placeholder="Noah Tolosa">
+        </div>
+        <div>
+            <label for="cleintname" class="clientOrder-lable">Address:</label>
+            <input type="text" class="clientOrder-input" name="address" value="" placeholder="Helsinki Finland">
+        </div>
+        <div>
+            <label for="card" class="clientOrder-lable">Paymnet Card Number:</label>
+            <input type="text" class="clientOrder-input" name="card" value="" placeholder="49***56566***">
+        </div>
+        <div>
+            <button type="submit" id="order-btn" class="place-orderBtn">Place-Order</button>
+        </div>
+    </form>
+
+</div>
+<!--/home section ends here -->
+
+<script src="../assets/js/index.js"></script>
+</body>
+
+</html>
+
+<!--/main site-->

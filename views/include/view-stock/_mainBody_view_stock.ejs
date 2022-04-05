@@ -1,0 +1,61 @@
+
+  <!-- form handling -->
+  <main  id="site-main">
+     <dv class="main-container">
+        <form action="/" method="POST">
+          <table class="table">
+           <thead class="thead-dark">
+              <tr> 
+                <th>ID</th>
+                <th>Cover Page</th>
+                <th>Title</th>
+                <th>Geners</th>
+                <th>Purchase Price</th>
+                <th>Selling Price</th>
+                <th>Arrival Date</th>
+                <th>Status</th>
+                <th>Action</th>
+                
+              </tr>
+             </thead>
+     <tbody>
+           
+        <% for(var i=0;i<books.length;i++){%>
+            <tr>
+                <td><%=i+1%></td>
+                <td><img src="<%= books[i].avatar %>" width="40px" /></td>
+                <td><%=books[i].Title%></td>
+                <td><%=books[i].Geners%></td>
+                <td><%=books[i].PurchasePrice%></td>
+                <td><%=books[i].SellingPrice%></td>
+                <td>
+                 
+                    <a class="stockDate">
+                        <span ><%= moment(books[i].ArrivalDate).format( 'MMM-DD-YYYY')%></i></span>
+                    </a>
+
+                </td>
+                <td><%=books[i].status%></td>
+                
+                <td>
+                    <a href="update-stock?id=<%=books[i]._id%>" data-id2="<%=books[i]._id%>"class="btn border-shadow update">
+                        <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+                    </a>
+                    <a class="btn border-shadow delete2" data-id= <%=books[i]._id%>>
+                        <span class="text-gradient"><i class="fas fa-times"></i></span>
+                    </a>
+                </td>
+            </tr>
+        <%}%>
+        
+        </tbody>
+    </table>
+</form>
+</div>
+</main>
+
+
+
+
+
+

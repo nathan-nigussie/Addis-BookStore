@@ -1,0 +1,71 @@
+<!-- main section of the website -->
+<div class="main-container">
+
+    <form id="update_stock_form" method="POST" action="/api/books/<%=books._id%>" enctype="multipart/form-data">
+
+        <div class="new_book">
+            <div class="form-group">
+                <label for="title" class="text-light">Title</label>
+                <input type="text" name="Title" value="<%=books.Title%>" placeholder="Noah Tolosa">
+            </div>
+
+            <div class="form-group">
+                <label for="Geners" class="text-light">Geners</label>
+                <div class="dropdown">
+                    <select name="Current Geners">
+                   <option id="geners"><%=books.Geners%></option>
+                   <option class="new-geners">True Story</option>
+                   <option class="new-geners">Suspense</option>
+                   <option class="new-geners">Drama</option>
+                   <option class="new-geners">Poem</option>
+                   <option class="new-geners">Education</option>
+               </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="PurchasePrice" class="text-light">Purchase Price</label>
+                    <input type="text" name="PurchasePrice" value="<%=books.PurchasePrice%> ">
+                </div>
+                <div class="form-group">
+                    <label for="SellingPrice" class="text-light">Selling Price</label>
+                    <input type="text" name="SellingPrice" value="<%=books.SellingPrice%> ">
+                </div>
+                <div class="form-group">
+                    <label for="Description" class="text-light">Description</label>
+                    <input type="text" name="Description" value="<%=books.Description%> ">
+                </div>
+                <div class="form-group">
+                    <label for="ArrivalDate" class="text-light">Saved Arrival Date:</label>
+                    <span id="saved-Date"><%= moment(books.ArrivalDate).format( 'MMM-DD-YYYY')%></i></span>
+
+                </div>
+                <label for="ArrivalDate" class="text-light">New Date:</label>
+                <input id="update_stock_form_date" type="datetime-local" name="ArrivalDate" value="<%=books.ArrivalDate%>" required>
+
+                <div>
+                    <label for="uploadimage" class="text-light"> Old Book Cover:</label>
+
+                    <div id="stored-book-cover">
+                        <img src="/<%= books.avatar %>" width="40px" />
+                    </div>
+                    <div class="form-group">
+                        <label for="uploadimage" class="text-light">New book-cover:</label>
+                        <input id="book-cover" type="file" name="new_avatar">
+                    </div>
+                    <div class="form-group">
+                        <label for="status" id="status-update" class="text-light">Status:</label>
+                        <div class="radio inline">
+                            <input type="radio" id="radio-1" name="status" value="Available" <%=books.status=='Available' ? ' checked ': ' '%>>
+                            <label for="radio-1" class="radio-label">Available</label>
+                        </div>
+                        <div class="radio inline">
+                            <input type="radio" id="radio-2" name="status" value="out of stock" <%=books.status=='out of stock' ? ' checked ': ' '%>>
+                            <label for="radio-2" class="radio-label">Out of stock</label>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" value="<%=books._id%>" id="update-btn" class="btn text-dark update">update-stock</button>
+                        </div>
+
+                    </div>
+    </form>
