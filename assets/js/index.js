@@ -22,7 +22,7 @@ $(document).ready(function() {
             alert("**Fill the required fields please!");
             return false;
         }
-        //minimum password length validation  
+        //minimum password length validation
         else if (username == "admin@gmail.com" && pw == "admin123") {
             window.location = "http://localhost:3000/add-newBook";
         }
