@@ -48,7 +48,7 @@ $(document).ready(function() {
         alert("Data submitted succesfully");
     });
 
-    //updating existing book stock
+    //updating existing book in the stock
 
     if (window.location.pathname == "/update-stock") {
         $(document).on('click', '.btn.text-dark.update', (function() {
@@ -59,15 +59,14 @@ $(document).ready(function() {
             }
             if (confirm("do you really want to update this record?")) {
                 $.ajax(request).done(function(response) {
-                    alert("User successfully updated!");
-                    console.log("updated")
+                    alert("Book information successfully updated!");
                     location.reload();
                 })
             }
         }))
     }
 
-    // deleting Boks detail with specified Id
+    // deleting Books detail with specified Id
 
     if (window.location.pathname == "/view-stock") {
         $(document).on('click', '.btn.border-shadow.delete2', (function() {
@@ -78,7 +77,7 @@ $(document).ready(function() {
             }
             if (confirm("do you really want to delete this record?")) {
                 $.ajax(request).done(function(response) {
-                    alert("User successfully deleted!");
+                    alert("Book information successfully deleted!");
                     location.reload();
                 })
             }

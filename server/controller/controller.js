@@ -3,40 +3,40 @@ const path = require("../middleware/upload.js");
 const fs = require("fs")
 
 //create and save new book information
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
 
-        //validate request
-        if (!req.body) {
-            res.status(400).send({ message: "Content can not be empty" });
-            return;
-        }
-        //new book
-        console.log(req.file);
-        let books = new Booksdb({
-            Title: req.body.Title,
-            Geners: req.body.Geners,
-            PurchasePrice: req.body.PurchasePrice,
-            SellingPrice: req.body.SellingPrice,
-            Description: req.body.Description,
-            ArrivalDate: req.body.ArrivalDate,
-            status: req.body.status,
-            avatar: req.file.filename
-        })
-        if (req.file) {
-            Booksdb.avatar = req.file.filename
-        }
-        books.save(books)
-            .then(response => {
-                res.status(201).json({
-                    message: "created successfully",
-                })
-            }).catch(err => {
-                res.status(500).send({
-                    message: err.message || "Error occurred while Creating a create Operation"
-                });
-            })
+    //validate request
+    if (!req.body) {
+        res.status(400).send({ message: "Content can not be empty" });
+        return;
     }
-    //retrieve and return all Books data
+    //new book
+    console.log(req.file);
+    let books = new Booksdb({
+        Title: req.body.Title,
+        Geners: req.body.Geners,
+        PurchasePrice: req.body.PurchasePrice,
+        SellingPrice: req.body.SellingPrice,
+        Description: req.body.Description,
+        ArrivalDate: req.body.ArrivalDate,
+        status: req.body.status,
+        avatar: req.file.filename
+    })
+    if (req.file) {
+        Booksdb.avatar = req.file.filename
+    }
+    books.save(books),
+        (err, result) => {
+            if (err) {
+                console.log("error in saving the book information")
+            } else {
+                console.log("Book information successfully saved! ")
+            }
+        }
+    res.redirect("/add-newBook")
+}
+
+//retrieve and return all Books data
 exports.find = (req, res) => {
     if (req.query.id) {
         const id = req.query.id;
