@@ -9,8 +9,14 @@ This bookstore application has the following components
 #  Home-page
 ![book1](https://user-images.githubusercontent.com/91279474/162163138-5c733ed6-3e92-44dd-b2ec-57f944731691.png)
 
-# Page admi page.
- The admin able to view books in the stock, add books to the stcok, update book informations and delete the required books from the stock.
+# sells-page
+a page where a user views information associated books from the shelf.
+
+![book6](https://user-images.githubusercontent.com/91279474/162173474-a7854958-d894-4958-a5a1-cce20a721eae.png)
+
+
+# admin page.
+ a page where admin able to view books in the stock, add books to the stock, update book informations and delete the required books from the stock.
 
 ![book2](https://user-images.githubusercontent.com/91279474/162165004-8b631b2a-4bc1-4e30-be60-3d115aa0f5da.png)
 
