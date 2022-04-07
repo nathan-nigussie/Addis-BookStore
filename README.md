@@ -10,9 +10,9 @@ This bookstore application has the following components
 ![book1](https://user-images.githubusercontent.com/91279474/162163138-5c733ed6-3e92-44dd-b2ec-57f944731691.png)
 
 # Page admi page.
-  page admin able to view books in the stock, add books to the stcok, update book informations and delete the required books from the stock.
- 
-[book2](https://user-images.githubusercontent.com/91279474/162163432-85dc9680-e004-4a0c-b80f-3fcd5cff6fa0.png)
+ The admin able to view books in the stock, add books to the stcok, update book informations and delete the required books from the stock.
+
+![book2](https://user-images.githubusercontent.com/91279474/162165004-8b631b2a-4bc1-4e30-be60-3d115aa0f5da.png)
 
 
 # Add-Stock page
@@ -25,4 +25,5 @@ This bookstore application has the following components
 
 
 # update -Stock page!
-[book5](https://user-images.githubusercontent.com/91279474/162164229-1fab54a4-a8be-4fcf-85fb-5b596689b522.png)
+
+![book5](https://user-images.githubusercontent.com/91279474/162165073-cff120c8-2632-40a1-bf86-97fce923fe84.png)
