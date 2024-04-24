@@ -1,13 +1,13 @@
-const mongoose = require("mongoose");
+const mongoose=require("mongoose");
 
-var schema = new mongoose.Schema({
+const booksdb=new mongoose.Schema({
     Title: {
         type: String,
     },
     Geners: {
         type: String,
         required: false,
-        enum: ['Romance', 'True Story', 'Suspense', 'Drama', 'Poem', 'Education'],
+        enum: ['Romance','True Story','Suspense','Drama','Poem','Education'],
     },
     PurchasePrice: {
         type: String,
@@ -32,5 +32,5 @@ var schema = new mongoose.Schema({
     },
     status: String
 })
-const Booksdb = mongoose.model("booksdb", schema);
-module.exports = Booksdb;
+
+module.exports=mongoose.model("booksdb",booksdb);
