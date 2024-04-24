@@ -1,99 +1,94 @@
-var Booksdb = require("../model/model.js");
+const Booksdb = require("../model/model.js");
+
 const path = require("../middleware/upload.js");
-const fs = require("fs")
+const fs = require("fs");
 
-//create and save new book information
-exports.create = (req, res, next) => {
+//Creating new Book Data
+const createBooks = async (req, res) => {
+  try {
+    const books = new Booksdb({
+      Title: req.body.Title,
+      Geners: req.body.Geners,
+      PurchasePrice: req.body.PurchasePrice,
+      SellingPrice: req.body.SellingPrice,
+      Description: req.body.Description,
+      ArrivalDate: req.body.ArrivalDate,
+      status: req.body.status,
+      avatar: req.file.filename,
+    });
+    await Booksdb.create(books);
 
-    //validate request
-    if (!req.body) {
-        res.status(400).send({ message: "Content can not be empty" });
-        return;
+    res.redirect("/view-stock");
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
+
+//geting  all book data
+
+const getAllBooks = async (req, res) => {
+  try {
+    const books = await Booksdb.find();
+    // res.json({books: req.body.Title})
+    res.status(200).json({ books });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
+
+//request for single book data with id
+const getSingleBook = async (req, res) => {
+  try {
+    id = req.query.id;
+    const books = await Booksdb.findOne(id).then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "not found user with id" + id });
+      } else {
+        res.send(data);
+        console.log(data);
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
+
+//deleting signle book data
+
+const deleteBook = async (req, res) => {
+  try {
+    const { id: booksID } = req.params;
+    const books = await Booksdb.findOneAndDelete({ _id: booksID });
+
+    if (!books) {
+      return res.status(404).json({ msg: `No book found with id:${booksID}` });
     }
-    //new book
-    console.log(req.file);
-    let books = new Booksdb({
-        Title: req.body.Title,
-        Geners: req.body.Geners,
-        PurchasePrice: req.body.PurchasePrice,
-        SellingPrice: req.body.SellingPrice,
-        Description: req.body.Description,
-        ArrivalDate: req.body.ArrivalDate,
-        status: req.body.status,
-        avatar: req.file.filename
-    })
+    fs.unlinkSync("./myuploads/" + books.avatar);
+
+    res.status(200).json({ books });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
+
+const updateBook = async (req, res) => {
+  let id = req.params.id;
+  console.log("id in update" + id);
+  console.log(req.file);
+
+  const book = await Booksdb.findById({ _id: id });
+  let new_avatar = book.avatar;
+
+  try {
     if (req.file) {
-        Booksdb.avatar = req.file.filename
-    }
-    books.save(books),
-        (err, result) => {
-            if (err) {
-                console.log("error in saving the book information")
-            } else {
-                console.log("Book information successfully saved! ")
-            }
-        }
-    res.redirect("/add-newBook")
-}
-
-//retrieve and return all Books data
-exports.find = (req, res) => {
-    if (req.query.id) {
-        const id = req.query.id;
-        Booksdb.findById(id)
-            .then(data => {
-                if (!data) {
-                    res.status(404).send({ message: "not found user with id" + id })
-                } else {
-                    res.send(data)
-                }
-            })
-            .catch(err => {
-                res.status(500).send({ message: "Error in retriving user with id" + id })
-            })
-    } else
-        Booksdb.find()
-        .then(books => {
-            res.send(books)
-        })
-        .catch(err => {
-            res.status(500).send({ message: err.message || "Error occurred while Creating a create Operation" });
-        })
-}
-
-//finding a a book with its Id 
-exports.find_By_Id = (req, res) => {
-
-        const id2 = req.params.id;
-        Booksdb.findById(id2)
-            .then(data => {
-                if (!data) {
-                    res.status(404).send({ message: "not found user with id" + id2 })
-                } else {
-                    res.send(data)
-                }
-            })
-            .catch(err => {
-                res.status(500).send({ message: "Error in retriving user with id" + id2 })
-            })
-
-    }
-    //  Update a new identified Book by its id
-exports.update = (req, res) => {
-    let new_avatar = "";
-    let id = req.params.id;
-
-    if (req.file) {
-        new_avatar = req.file.filename;
-        try {
-            fs.unlinkSync("../myuploads/" + req.file.filename)
-        } catch (err) {
-            console.log(err)
-        }
+      fs.unlinkSync("./myuploads/" + book.avatar);
+      new_avatar = req.file.filename;
     } else {
-        new_avatar = req.body.avatar;
     }
-    Booksdb.findByIdAndUpdate(id, {
+
+    await Booksdb.findByIdAndUpdate(
+      { _id: id },
+      {
         Title: req.body.Title,
         Geners: req.body.Geners,
         PurchasePrice: req.body.PurchasePrice,
@@ -101,29 +96,20 @@ exports.update = (req, res) => {
         Description: req.body.Description,
         ArrivalDate: req.body.ArrivalDate,
         status: req.body.status,
-        avatar: new_avatar
-    }, (err, result) => {
-        if (err) {
-            console.log("error in updatding the book information");
-        } else {
-            console.log("successfully updated! ")
-        }
-    })
-    res.redirect("/view-stock")
-}
+        avatar: new_avatar,
+      }
+    );
+    res.status(204).redirect("/view-stock");
+    // res.redirect("/view-stock");
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
 
-//Deleting a Book with its specified id 
-exports.delete = (req, res) => {
-    const id = req.params.id;
-    Booksdb.findByIdAndDelete(id)
-        .then(data => {
-            if (!data) {
-                res.status(404).send({ message: `Cannot delete a user with ${id}. May be user with this Id is not found` })
-            } else {
-                res.send(`${data} + successfully deleted!`)
-            }
-        })
-        .catch(err => {
-            res.status(500).send({ message: "Error delete user information" })
-        })
-}
+module.exports = {
+  createBooks,
+  getAllBooks,
+  updateBook,
+  deleteBook,
+  getSingleBook,
+};
